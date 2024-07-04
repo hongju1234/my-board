@@ -61,7 +61,26 @@
         /*<![CDATA[*/
 
         window.onload = () => {
-            initCreatedDate();
+            renderPostInfo();
+        }
+
+        // 게시글 상세정보 렌더링
+        function renderPostInfo() {
+            const post = [[ ${post} ]]; // 서버로부터 전달된 게시글 객체
+
+            if ( !post ) {
+                initCreatedDate(); // 새로운 게시글 작성 시, 오늘 날짜를 설정
+                return false;
+            }
+
+            const form = document.getElementById('saveForm');
+            const fields = ['id', 'title', 'content', 'writer', 'noticeYn'];
+            form.isNotice.checked = post.noticeYn; // 공지 여부 설정
+            form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm'); // 생성 날짜 설정
+
+            fields.forEach(field => {
+                form[field].value = post[field]; // 폼 필드에 게시글 정보 채우기
+            })
         }
 
 
