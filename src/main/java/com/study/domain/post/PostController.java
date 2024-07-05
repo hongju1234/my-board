@@ -54,4 +54,11 @@ public class PostController {
         postService.updatePost(params);
         return "redirect:/post/list.do";
     }
+
+    // 기존 게시글 삭제
+    @PostMapping("/post/delete.do")
+    public String deletePost(final Long id) {
+        postService.deletePost(id);
+        return "redirect:/post/list.do";
+    }
 }
