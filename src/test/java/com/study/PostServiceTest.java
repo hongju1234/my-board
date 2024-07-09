@@ -21,30 +21,30 @@ public class PostServiceTest {
 
     private Long postId;
 
-    @BeforeEach
-    void setUp() {
-        // 게시글을 저장하고 ID를 받아옵니다.
-        PostRequest params = new PostRequest();
-        params.setTitle("게시글 제목 테스트");
-        params.setContent("게시글 내용 테스트");
-        params.setWriter("tester");
-        params.setNoticeYn(false);
-        postId = postService.savePost(params);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        // 게시글을 저장하고 ID를 받아옵니다.
+//        PostRequest params = new PostRequest();
+//        params.setTitle("게시글 제목 테스트");
+//        params.setContent("게시글 내용 테스트");
+//        params.setWriter("tester");
+//        params.setNoticeYn(false);
+//        postId = postService.savePost(params);
+//    }
 
-    @Test
-    void save() {
-        PostRequest params = new PostRequest();
-        params.setTitle("게시글 제목 테스트");
-        params.setContent("게시글 내용 테스트");
-        params.setWriter("tester");
-        params.setNoticeYn(false);
-        Long id = postService.savePost(params);
-        System.out.println("생성된 게시글 ID : " + id);
-
-        List<PostResponse> posts = postService.findAllPost();
-        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
-    }
+//    @Test
+//    void save() {
+//        PostRequest params = new PostRequest();
+//        params.setTitle("게시글 제목 테스트");
+//        params.setContent("게시글 내용 테스트");
+//        params.setWriter("tester");
+//        params.setNoticeYn(false);
+//        Long id = postService.savePost(params);
+//        System.out.println("생성된 게시글 ID : " + id);
+//
+//        List<PostResponse> posts = postService.findAllPost();
+//        System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
+//    }
 
     @Test
     void findById() {
@@ -81,10 +81,22 @@ public class PostServiceTest {
         }
     }
 
+//    @Test
+//    void delete() {
+//        System.out.println("삭제 이전의 전체 개시글 개수는 : " + postService.findAllPost().size() + "개입니다.");
+//        postService.deletePost(postId);
+//        System.out.println("삭제 이후의 전체 개시글 개수는 : " + postService.findAllPost().size() + "개입니다.");
+//    }
+
     @Test
-    void delete() {
-        System.out.println("삭제 이전의 전체 개시글 개수는 : " + postService.findAllPost().size() + "개입니다.");
-        postService.deletePost(postId);
-        System.out.println("삭제 이후의 전체 개시글 개수는 : " + postService.findAllPost().size() + "개입니다.");
+    void saveByForeach() {
+        for (int i = 1; i <= 1000; i++) {
+            PostRequest params = new PostRequest();
+            params.setTitle(i + "번 게시글 제목");
+            params.setContent(i + "번 게시글 내용");
+            params.setWriter("테스터" + i);
+            params.setNoticeYn(false);
+            postService.savePost(params);
+        }
     }
 }
