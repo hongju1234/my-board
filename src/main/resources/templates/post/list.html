@@ -46,28 +46,13 @@
 
                     <!--/* 리스트 데이터 렌더링 영역 */-->
                     <tbody id="list">
-<!--                    <tr th:if="${not #lists.isEmpty( posts )}" th:each="row, status : ${posts}">-->
-<!--                        <td><input type="checkbox"/></td>-->
-<!--                        <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>-->
-<!--                        <td class="tl"><a th:href="@{/post/view.do( id=${row.id} )}" th:text="${row.title}"></a></td>-->
-<!--                        <td th:text="${row.writer}"></td>-->
-<!--                        <td th:text="${#temporals.format( row.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>-->
-<!--                        <td th:text="${row.viewCnt}"></td>-->
-<!--                    </tr>-->
 
-<!--                    <tr th:unless="${not #lists.isEmpty( posts )}">-->
-<!--                        <td colspan="5">-->
-<!--                            <div class="no_data_msg">검색된 결과가 없습니다.</div>-->
-<!--                        </td>-->
-<!--                    </tr>-->
                     </tbody>
                 </table>
 
                 <!--/* 페이지네이션 렌더링 영역 */-->
                 <div class="paging">
-<!--                    <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>-->
-<!--                    <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>-->
-<!--                    <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>-->
+
                 </div>
 
                 <!--/* 버튼 */-->
@@ -77,12 +62,36 @@
             </section>
         </div> <!--/* .content */-->
     </th:block>
-    <th:blcck layout:fragment="script">
+    <th:block layout:fragment="script">
         <script th:inline="javascript">
         /*<![CDATA[*/
+            // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
             window.onload = () => {
-                // 페이지가 로드되었을 때, 딱 한 번만 함수를 실행
+                setQueryStringParams();
+
                 findAllPost();
+            }
+
+            // 쿼리 스트링 파라미터 셋팅
+            function setQueryStringParams() {
+
+                if ( !location.search ) {
+                    return false;
+                }
+
+                const form = document.getElementById('searchForm');
+
+                new URLSearchParams(location.search).forEach((value, key) => {
+                    if (form[key]) {
+                        form[key].value = value;
+                    }
+                })
+            }
+
+            // 게시글 상세 페이지로 이동
+            function goViewPage(id) {
+                const queryString = (location.search) ? location.search + `&id=${id}` : `?id=${id}`;
+                location.href = '/post/view.do' + queryString;
             }
 
             // 게시글 리스트 조회
@@ -129,7 +138,7 @@
                         <tr>
                             <td><input type="checkbox" /></td>
                             <td>${row.noticeYn === false ? num-- : '공지'}</td>
-                            <td class="tl"><a href="/post/view.do?id=${row.id}">${row.title}</a></td>
+                            <td class="tl"><a href="javascript:void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
                             <td>${row.writer}</td>
                             <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
                             <td>${row.viewCnt}</td>
@@ -213,5 +222,5 @@
 
         /*]]>*/
         </script>
-    </th:blcck>
+    </th:block>
 </html>
