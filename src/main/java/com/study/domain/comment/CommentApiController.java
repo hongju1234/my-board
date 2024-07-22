@@ -32,9 +32,15 @@ public class CommentApiController {
 
     // 기존 댓글 수정
     @PatchMapping("/posts/{postId}/comments/{id}")
-    public CommentResponse updatecomment(@PathVariable final Long postId, @PathVariable final Long id, @RequestBody final CommentRequest params) {
+    public CommentResponse updateComment(@PathVariable final Long postId, @PathVariable final Long id, @RequestBody final CommentRequest params) {
         commentService.updateComment(params);
         return commentService.findCommentById(id);
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/posts/{postId}/comments/{id}")
+    public Long deleteComment(@PathVariable final Long postId, @PathVariable final Long id) {
+        return commentService.deleteComment(id);
     }
 
 }
