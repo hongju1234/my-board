@@ -101,6 +101,32 @@
     <script th:inline="javascript">
     /*<![CDATA[*/
 
+        window.onload = () => {
+            findAllComment();
+        }
+
+
+        // 전체 댓글 조회
+        function findAllComment(page) {
+
+            const currentPage = document.querySelector('.paging a.on');
+            page = (page) ? page : (currentPage ? Number(currentPage.text) : 1);
+
+            const postId = [[ ${post.id}]];
+            const uri = `/posts/${postId}/comments`;
+            const params = {
+                page : page,
+                recordSize : 5,
+                pageSize : 10,
+                postId : postId,
+            }
+
+            const response = getJson(uri, params);
+            const pagination = response.pagination;
+            drawComments(response.list);
+            drawPage(pagination, page);
+        }
+
         // 게시글 삭제
         function deletePost() {
 
@@ -157,6 +183,7 @@
             isValid(content, '댓글');
 
             const postId = [[ ${post.id} ]];
+            const uri = `/posts/${postId}/comments`;
             const params = {
                 postId : postId,
                 content : content.value,
@@ -168,32 +195,6 @@
             content.value = '';
             document.getElementById('counter').innerText = '0/300자';
             findAllComment(1);
-        }
-
-        window.onload = () => {
-            findAllComment();
-        }
-
-
-        // 전체 댓글 조회
-        function findAllComment(page) {
-
-            const currentPage = document.querySelector('.paging a.on');
-            page = (page) ? page : (currentPage ? Number(currentPage.text) : 1);
-
-            const postId = [[ ${post.id}]];
-            const uri = `/posts/${postId}/comments`;
-            const params = {
-                page : page,
-                recordSize : 5,
-                pageSize : 10,
-                postId : postId,
-            }
-
-            const response = getJson(uri, params);
-            const pagination = response.pagination;
-            drawComments(response.list);
-            drawPage(pagination, page);
         }
 
         // 댓글 HTML draw
