@@ -29,12 +29,13 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' /* Thymeleaf Layout */
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'  /* Log4JDBC */
-	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'  /* spring-security-crypto */
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// JDBC 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
