@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-//@Setter  //테스트 더미용
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter  //테스트 더미용
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentRequest {
 
     private Long id;        // 댓글 번호 (PK)
