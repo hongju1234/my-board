@@ -15,6 +15,11 @@ public class FileService {
 
     private final FileMapper fileMapper;
 
+    /**
+     * 파일 정보 저장 (to Database)
+     * @param postId - 게시글 번호 (FK)
+     * @param files - 파일 정보 리스트
+     */
     @Transactional
     public void saveFiles(final Long postId, final List<FileRequest> files) {
         if (CollectionUtils.isEmpty(files)) {
