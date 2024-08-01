@@ -15,6 +15,11 @@ public class FileService {
 
     private final FileMapper fileMapper;
 
+    /**
+     * 파일 정보 저장 (to Database)
+     * @param postId - 게시글 번호 (FK)
+     * @param files - 파일 정보 리스트
+     */
     @Transactional
     public void saveFiles(final Long postId, final List<FileRequest> files) {
         if (CollectionUtils.isEmpty(files)) {
@@ -57,6 +62,15 @@ public class FileService {
             return;
         }
         fileMapper.deleteAllByIds(ids);
+    }
+
+    /**
+     * 파일 상세정보 조회
+     * @param id - PK
+     * @return 파일 상세정보
+     */
+    public FileResponse findFileById(final Long id) {
+        return fileMapper.findById(id);
     }
 
 }

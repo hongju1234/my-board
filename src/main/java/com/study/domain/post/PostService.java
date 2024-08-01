@@ -56,6 +56,16 @@ public class PostService {
         postMapper.deleteById(id);
         return id;
     }
+
+    /**
+     * 게시글 조회수 증가
+     * @param id - pk
+     * @return PK
+     */
+    public Long viewCountById(final Long id) {
+        postMapper.viewCountById(id);
+        return id;
+    }
 //
 //    /**
 //     * 게시글 리스트 조회
