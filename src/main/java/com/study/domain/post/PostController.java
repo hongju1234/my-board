@@ -72,6 +72,10 @@ public class PostController {
     // 게시글 상세 페이지
     @GetMapping("/post/view.do")
     public String openPostView(@RequestParam final Long id, Model model) {
+        // 게시글 조회수 증가
+        postService.viewCountById(id);
+
+        // 게시글 상세 정보 조회
         PostResponse post = postService.findPostById(id);
         model.addAttribute("post", post);
         return "post/view";

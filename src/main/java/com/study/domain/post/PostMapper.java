@@ -40,9 +40,14 @@ public interface PostMapper {
 
     /**
      * 게시글 수 카운팅
-     *
      * @return 게시글 수
      */
     int count(SearchDto params);
+
+    /**
+     * 게시글 조회수 증가
+     * @param id - pk
+     */
+    void viewCountById(Long id);
 
 }
